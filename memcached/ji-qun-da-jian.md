@@ -2,7 +2,7 @@
 
 1、分别在三台服务器上安装Memcached并启动
 
-　　第一、由于memcached是基于libevent的事件处理，所以需要安装libevent
+第一、由于memcached是基于libevent的事件处理，所以需要安装libevent
 
 ```
 yum install libevent libevent-devel
@@ -72,63 +72,63 @@ public class MemcachedUtils {
     private static String[] servers=new String[]{"192.168.176.131:1211","192.168.176.129:1211"};
     //服务器权重  所有权重的最大公约数应该是1  否则会造成资源浪费
     private static Integer[] serverWeights=new Integer[]{1,1};
-    
+
     private static MemCachedClient cachedClient;
 
     static {
-        
+
         //设置服务器列表
         sockIOPool.setServers(servers);
-        
+
         //设置服务器的权重  权重和服务器的位置一一对应
         sockIOPool.setWeights(serverWeights);
-        
+
         //设置开始时每个cache服务器的可用连接数
         sockIOPool.setInitConn(2);
-        
+
         //设置每个服务器最少可用连接数
         sockIOPool.setMinConn(2);
-        
+
         //设置每个服务器最大可用连接数 
         sockIOPool.setMaxConn(10);
-        
+
         //设置可用连接池的最长等待时间  ms
         sockIOPool.setMaxIdle(5000);
-        
+
         /**
          *设置连接池维护线程的睡眠时间
          *设置为0，维护线程不启动
          *维护线程主要通过log输出socket的运行状况，监测连接数目及空闲等待时间等参数以控制连接创建和关闭。
          */
         sockIOPool.setMaintSleep(0);
-        
+
         //设置是否使用Nagle算法，因为我们的通讯数据量通常都比较大（相对TCP控制数据）而且要求响应及时，因此该值需要设置为false（默认是true）
         sockIOPool.setNagle(true);
-        
+
         //设置socket的读取等待超时值 ms
         sockIOPool.setSocketTO(3000);
-        
+
         //设置socket的连接等待超时值  ms
         sockIOPool.setSocketConnectTO(2000);
-        
+
         /**
          *设置连接心跳监测开关。
          *设为true则每次通信都要进行连接是否有效的监测，造成通信次数倍增，加大网络负载，因此该参数应该在对HA要求比较高的场合设为TRUE，默认状态是false。
          */
         sockIOPool.setAliveCheck(false);
-        
+
         /**
          *设置连接失败恢复开关
          *设置为TRUE，当宕机的服务器启动或中断的网络连接后，这个socket连接还可继续使用，否则将不再使用，默认状态是true，建议保持默认。
          */
         sockIOPool.setFailback(true);
-        
+
         /**
          *设置容错开关
          *设置为TRUE，当当前socket不可用时，程序会自动查找可用连接并返回，否则返回NULL，默认状态是true，建议保持默认。
          */
         sockIOPool.setFailover(true);
-        
+
         /**
           *设置hash算法
          *        alg=0 使用String.hashCode()获得hash code,该方法依赖JDK，可能和其他客户端不兼容，建议不使用
@@ -138,12 +138,12 @@ public class MemcachedUtils {
          *采用前三种hash算法的时候，查找cache服务器使用余数方法。采用最后一种hash算法查找cache服务时使用consistent方法。
          */
         sockIOPool.setHashingAlg(3);
-        
+
         //设置完pool参数后最后调用该方法，启动pool。
         sockIOPool.initialize();
-        
+
         if (cachedClient == null){
-            
+
             cachedClient = new MemCachedClient("memcached1");
             /**
              *设定是否压缩放入cache中的数据
@@ -151,17 +151,17 @@ public class MemcachedUtils {
              *如果设定该值为true，需要设定CompressThreshold?
              */
             cachedClient.setCompressEnable(true);
-            
+
             // 设定需要压缩的cache数据的阈值 默认值是30k
             cachedClient.setCompressThreshold(30);
-            
+
 
             /*设置cache数据的原始类型是String
                 默认值是false
                 只有在确定cache的数据类型是string的情况下才设为true，这样可以加快处理速度。
              */
             cachedClient.setPrimitiveAsString(false);
-            
+
         }
     }
 
