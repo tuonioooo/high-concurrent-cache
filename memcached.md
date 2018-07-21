@@ -8,6 +8,7 @@
 * [Java客户端](/memcached/javake-hu-duan.md) 
 * [memcached特点与redis区别](#)
 * [一致性哈希算法原理](/memcached/yi-zhi-xing-ha-xi-suan-fa-yuan-li.md)
+* [Memcache 高可用集群之magent实现主从](/memcached/magentshi-xian-memcache-zhu-cong.md)
 
 
 
