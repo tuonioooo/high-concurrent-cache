@@ -5,7 +5,7 @@
 * [Memcached](memcached.md)
   * [安装配置](memcached/an-zhuang-pei-zhi.md)
     * [Linux安装](memcached/an-zhuang-pei-zhi/linuxan-zhuang.md)
-    * Windows安装
+    * [Windows安装](memcached/an-zhuang-pei-zhi/windowsan-zhuang.md)
   * 集群搭建
   * 常用场景
   * 客户端命令
