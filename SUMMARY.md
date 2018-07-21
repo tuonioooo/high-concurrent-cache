@@ -8,7 +8,8 @@
     * [Windows安装](memcached/an-zhuang-pei-zhi/windowsan-zhuang.md)
   * 集群搭建
   * 常用场景
-  * 客户端命令
+  * [客户端命令](memcached/ke-hu-duan-ming-ling.md)
+    * [客户端连接命令](memcached/ke-hu-duan-ming-ling/ke-hu-duan-lian-jie-ming-ling.md)
   * Java客户端
   * memcached特点与redis区别
 * [互联网缓存架构设计](hu-lian-wang-huan-cun-jia-gou-she-ji.md)
