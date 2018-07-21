@@ -6,7 +6,7 @@
   * [安装配置](memcached/an-zhuang-pei-zhi.md)
     * [Linux安装](memcached/an-zhuang-pei-zhi/linuxan-zhuang.md)
     * [Windows安装](memcached/an-zhuang-pei-zhi/windowsan-zhuang.md)
-  * 集群搭建
+  * [集群搭建](memcached/ji-qun-da-jian.md)
   * 常用场景
   * [客户端命令](memcached/ke-hu-duan-ming-ling.md)
     * [客户端连接命令](memcached/ke-hu-duan-ming-ling/ke-hu-duan-lian-jie-ming-ling.md)
@@ -28,7 +28,7 @@
       * [Memcached stats slabs 命令](memcached/ke-hu-duan-ming-ling/memcached-tong-ji-ming-ling/memcached-stats-slabs-ming-ling.md)
       * [Memcached stats sizes 命令](memcached/ke-hu-duan-ming-ling/memcached-tong-ji-ming-ling/memcached-stats-sizes-ming-ling.md)
       * [Memcached flush\_all 命令](memcached/ke-hu-duan-ming-ling/memcached-tong-ji-ming-ling/memcached-flushallming-ling.md)
-  * Java客户端
+  * [Java客户端](memcached/javake-hu-duan.md)
   * memcached特点与redis区别
 * [互联网缓存架构设计](hu-lian-wang-huan-cun-jia-gou-she-ji.md)
   * 常见的缓存架构方案
