@@ -7,7 +7,7 @@
     * [Linux安装](memcached/an-zhuang-pei-zhi/linuxan-zhuang.md)
     * [Windows安装](memcached/an-zhuang-pei-zhi/windowsan-zhuang.md)
   * [集群搭建](memcached/ji-qun-da-jian.md)
-  * 常用场景
+  * [常用场景](memcached/chang-yong-chang-jing.md)
   * [客户端命令](memcached/ke-hu-duan-ming-ling.md)
     * [客户端连接命令](memcached/ke-hu-duan-ming-ling/ke-hu-duan-lian-jie-ming-ling.md)
     * [Memcached 存储命令](memcached/ke-hu-duan-ming-ling/memcached-cun-chu-ming-ling.md)
