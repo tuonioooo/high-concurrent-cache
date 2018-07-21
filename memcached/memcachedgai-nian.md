@@ -54,15 +54,47 @@ Memcached 的守护进程（daemon ）是用C写的，但是客户端可以用�
 
 * 基于[libevent](https://baike.baidu.com/item/libevent)的事件处理
 
-> libevent是个[程序库](https://baike.baidu.com/item/程序库)，它将Linux的epoll、BSD类操作系统的kqueue等事件处理功能封装成统一的接口。即使对服务器的连接数增加，也能发挥O\(1\)的性能。memcached使用这个libevent库，因此能在Linux、BSD、Solaris等操作系统上发挥其高性能。关于事件处理这里就不再详细介绍，可以参考Dan Kegel的The C10K Problem。
+> * libevent是个[程序库](https://baike.baidu.com/item/程序库)，它将Linux的epoll、BSD类操作系统的kqueue等事件处理功能封装成统一的接口。即使对服务器的连接数增加，也能发挥O\(1\)的性能。memcached使用这个libevent库，因此能在Linux、BSD、Solaris等操作系统上发挥其高性能。关于事件处理这里就不再详细介绍，可以参考Dan Kegel的The C10K Problem。
 
 * 内置内存存储方式
 
-> 为了提高性能，memcached中保存的数据都存储在memcached内置的内存存储空间中。由于数据仅存在于内存中，因此重启memcached、重启操作系统会导致全部数据消失。另外，内容容量达到指定值之后，就基于LRU\(Least Recently Used\)算法自动删除不使用的[缓存](https://baike.baidu.com/item/%E7%BC%93%E5%AD%98)。memcached本身是为缓存而设计的服务器，因此并没有过多考虑数据的永久性问题。
+> 为了提高性能，memcached中保存的数据都存储在memcached内置的内存存储空间中。由于数据仅存在于内存中，因此重启memcached、重启操作系统会导致全部数据消失。另外，内容容量达到指定值之后，就基于LRU\(Least Recently Used\)算法自动删除不使用的[缓存](https://baike.baidu.com/item/缓存)。memcached本身是为缓存而设计的服务器，因此并没有过多考虑数据的永久性问题。
 
 * memcached不互相通信的分布式
 
-> _**memcached尽管是“分布式“**_[_**缓存服务器**_](https://baike.baidu.com/item/%E7%BC%93%E5%AD%98%E6%9C%8D%E5%8A%A1%E5%99%A8)_**，但服务器端并没有分布式功能**_。各个memcached不会互相通信以共享信息。那么，怎样进行分布式呢？这完全取决于客户端的实现。本文也将介绍memcached的分布式。
+> _**memcached尽管是“分布式“**_[_**缓存服务器**_](https://baike.baidu.com/item/缓存服务器)_**，但服务器端并没有分布式功能**_。各个memcached不会互相通信以共享信息。那么，怎样进行分布式呢？这完全取决于客户端的实现。本文也将介绍memcached的分布式。
+
+## memcached分布式算法
+
+* #### 余数计算分散法
+
+#### 是memcached标准的memcached分布式方法，算法如下：
+
+```
+CRC($key)%N
+```
+
+> 该算法下，客户端首先根据key来计算CRC，然后结果对服务器数进行取模得到memcached服务器节点，对于这种方式有两个问题值得说明一下：
+>
+> 当选择到的服务器无法连接的时候，一种解决办法是将尝试的连接次数加到key后面，然后重新进行hash，这种做法也叫rehash。
+>
+> 第二个问题也是这种方法的致命的缺点，尽管余数计算分散发相当简单，数据分散也很优秀，当添加或者移除服务器的时候，缓存重组的代价相当大。
+
+* #### Consistent Hashing算法（一致哈希算法）
+
+对于memcached的分布式完全就是依靠客户端的一致哈希算法来达到分布式的存储，因为本身各个memcached的服务器之间没办法通信，并不存在副本集或者主从的概念。Consistent Hashing算法描述如下：首先求出memcached服务器节点的哈希值，并将其分配到0~2^32的圆上，这个圆我们可以把它叫做值域，然后用同样的方法求出存储数据键的哈希值，并映射到圆上。然后从数据映射到的位置开始顺时针查找，将数据保存到找到的第一个服务器上，如果超过0~2^32仍找不到，就会保存在第一台memcached服务器上，如图
+
+![](/assets/import-memcached-01.png)
+
+然而当添加新的memcached节点的时候必然会打乱现有这个圆的结构，这时候是没办法完全保证你以前的key依然会存在之前的节点上，但是这种结构却是能保证在添加缓存服务器的时候把损失降到最小，受结构调整后key不能命中的只有在这个圆上新增的服务器节点逆时针的第一台服务器上，其他的是不受影响的，借用图如下：
+
+![](/assets/import-memcached-02.png)
+
+memcached和redis一样内部的存储都是key/Value的形式，正是这种哈希表数据结构保证了在内存中查找的时间的复杂度为O\(1\)，整体上memcached的高性能这两个哈希结构起了很大的作用，当然还有memcached的多路复用I/O模型也在高并发下起到了很大的作用。另外memcached的内部操作还具有CAS原子操作，这种利用CPU指令集的操作来保证在单个节点下数据的一致性，效率相对来说比加锁要高很多。
+
+
+
+
 
 
 
