@@ -30,7 +30,7 @@
       * [Memcached stats sizes 命令](memcached/ke-hu-duan-ming-ling/memcached-tong-ji-ming-ling/memcached-stats-sizes-ming-ling.md)
       * [Memcached flush\_all 命令](memcached/ke-hu-duan-ming-ling/memcached-tong-ji-ming-ling/memcached-flushallming-ling.md)
   * [Java客户端](memcached/javake-hu-duan.md)
-  * memcached特点与redis区别
+  * [memcached特点与redis区别](memcached/memcachedte-dian-yu-redis-qu-bie.md)
   * [一致性哈希算法原理](memcached/yi-zhi-xing-ha-xi-suan-fa-yuan-li.md)
 * [互联网缓存架构设计](hu-lian-wang-huan-cun-jia-gou-she-ji.md)
   * 常见的缓存架构方案
