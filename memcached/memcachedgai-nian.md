@@ -49,15 +49,20 @@ Memcached 的守护进程（daemon ）是用C写的，但是客户端可以用�
 > memcached有两种协议，文本协议和二进制协议，文本协议以换行表示一个请求结束。请求内部参数以空格分隔。为了二进制安全，在二进制数据前要加上长度这个参数，如set x 3 abc\r\n。
 >
 > 文本协议固然简单，可是当请求很小的时候，过多的协议本身的数据则显得浪费（比如每个HTTP请求只发送一个字母，可HTTP头可能有上百的字符，太浪费了），而且，server在接收到请求之后还要做文本解析，也耗cpu，于是memcached又推出了二进制协议，为了锦上添花，使得memcached更加高效。二进制协议的优点就是高效，因为所有信息都以最少的数据量来表达，且server解析请求时做的是数学比较而不是字符串比较，效率高很多。
-
+>
 > memcached的协议比起HTTP来就轻得多了（当然，两者所面向的场景不一样，故这个比较没太大意义）。但是，也有缺点，就是扩展性较差，协议定得比较死，哪个位置上有哪些东西，是什么意义是定死的。所以，直接哪来用在不同的场景下不大现实。
 
 * 基于[libevent](https://baike.baidu.com/item/libevent)的事件处理
 
-> libevent是个[程序库](https://baike.baidu.com/item/%E7%A8%8B%E5%BA%8F%E5%BA%93)，它将Linux的epoll、BSD类操作系统的kqueue等事件处理功能封装成统一的接口。即使对服务器的连接数增加，也能发挥O\(1\)的性能。memcached使用这个libevent库，因此能在Linux、BSD、Solaris等操作系统上发挥其高性能。关于事件处理这里就不再详细介绍，可以参考Dan Kegel的The C10K Problem。
+> libevent是个[程序库](https://baike.baidu.com/item/程序库)，它将Linux的epoll、BSD类操作系统的kqueue等事件处理功能封装成统一的接口。即使对服务器的连接数增加，也能发挥O\(1\)的性能。memcached使用这个libevent库，因此能在Linux、BSD、Solaris等操作系统上发挥其高性能。关于事件处理这里就不再详细介绍，可以参考Dan Kegel的The C10K Problem。
 
 * 内置内存存储方式
+
+> 为了提高性能，memcached中保存的数据都存储在memcached内置的内存存储空间中。由于数据仅存在于内存中，因此重启memcached、重启操作系统会导致全部数据消失。另外，内容容量达到指定值之后，就基于LRU\(Least Recently Used\)算法自动删除不使用的[缓存](https://baike.baidu.com/item/%E7%BC%93%E5%AD%98)。memcached本身是为缓存而设计的服务器，因此并没有过多考虑数据的永久性问题。
+
 * memcached不互相通信的分布式
+
+> _**memcached尽管是“分布式“**_[_**缓存服务器**_](https://baike.baidu.com/item/%E7%BC%93%E5%AD%98%E6%9C%8D%E5%8A%A1%E5%99%A8)_**，但服务器端并没有分布式功能**_。各个memcached不会互相通信以共享信息。那么，怎样进行分布式呢？这完全取决于客户端的实现。本文也将介绍memcached的分布式。
 
 
 
