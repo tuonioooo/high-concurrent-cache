@@ -8,7 +8,7 @@
   * [redis客户端](redis/rediske-hu-duan.md)
     * [Jedis使用指南](redis/rediske-hu-duan/jedis.md)
     * [redisson](redis/rediske-hu-duan/redisson.md)
-    * redis连接池
+    * [redis连接池](redis/rediske-hu-duan/redislian-jie-chi.md)
     * jedisCluster
     * jedisCluster+SpringMVC整合
   * [redis主从模式](redis/rediszhu-cong-mo-shi.md)
