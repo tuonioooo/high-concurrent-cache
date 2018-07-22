@@ -97,7 +97,7 @@ public class TestJedisCluster {
 <dependency>  
     <groupId>org.springframework.boot</groupId>  
     <artifactId>spring-boot-starter-data-redis</artifactId>  
-</dependency>  
+</dependency>
 ```
 
 配置文件application.yml在添加配置（假设有6个nodes）：
@@ -120,20 +120,20 @@ spring:
 ```
 @Autowired  
 RedisTemplate<String, String> redisTemplate;  
-  
+
 @Test  
 public void redisTest() {  
     String key = "redisTestKey";  
     String value = "I am test value";  
-      
+
     ValueOperations<String, String> opsForValue = redisTemplate.opsForValue();  
-      
+
     //数据插入测试：  
     opsForValue.set(key, value);  
     String valueFromRedis = opsForValue.get(key);  
     logger.info("redis value after set: {}", valueFromRedis);  
     assertThat(valueFromRedis, is(value));  
-      
+
     //数据删除测试：  
     redisTemplate.delete(key);  
     valueFromRedis = opsForValue.get(key);  
