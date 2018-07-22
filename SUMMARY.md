@@ -10,7 +10,7 @@
     * [redisson](redis/rediske-hu-duan/redisson.md)
     * [redis连接池](redis/rediske-hu-duan/redislian-jie-chi.md)
     * [jedisCluster详解](redis/rediske-hu-duan/jediscluster.md)
-    * jedisCluster+SpringMVC整合
+    * [jedisCluster+SpringMVC整合](redis/rediske-hu-duan/jediscluster+springmvczheng-he.md)
   * [redis主从模式](redis/rediszhu-cong-mo-shi.md)
     * 配置方式
     * 一主多从
