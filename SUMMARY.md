@@ -7,7 +7,7 @@
     * [Redis 命令参考](redis/redischang-yong-ming-ling/redisming-ling.md)
   * [redis客户端](redis/rediske-hu-duan.md)
     * [Jedis使用指南](redis/rediske-hu-duan/jedis.md)
-    * [redisson（分布式锁）](redis/rediske-hu-duan/redisson.md)
+    * [redisson](redis/rediske-hu-duan/redisson.md)
     * redis连接池
     * jedisCluster
     * jedisCluster+SpringMVC整合

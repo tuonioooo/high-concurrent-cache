@@ -1,4 +1,4 @@
-# redisson（分布式锁）
+# redisson
 
 ## 参考文档：
 
