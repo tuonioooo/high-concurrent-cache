@@ -12,9 +12,9 @@
     * [jedisCluster详解](redis/rediske-hu-duan/jediscluster.md)
     * [jedisCluster+SpringMVC整合](redis/rediske-hu-duan/jediscluster+springmvczheng-he.md)
   * [redis主从模式](redis/rediszhu-cong-mo-shi.md)
-    * 配置方式
-    * 一主多从
-    * 读写分离架构
+    * [配置方式](redis/rediszhu-cong-mo-shi/pei-zhi-fang-shi.md)
+    * [一主多从](redis/rediszhu-cong-mo-shi/yi-zhu-duo-cong.md)
+    * [读写分离架构](redis/rediszhu-cong-mo-shi/du-xie-fen-li-jia-gou.md)
   * [redis持计划机制的讲解](redis/redischi-ji-hua-ji-zhi-de-jiang-jie.md)
     * RDB详解
     * AOF详解
