@@ -19,9 +19,9 @@
     * [RDB详解](redis/redischi-ji-hua-ji-zhi-de-jiang-jie/rdbxiang-jie.md)
     * [AOF详解](redis/redischi-ji-hua-ji-zhi-de-jiang-jie/aofxiang-jie.md)
     * [RDB与AOF异同比较](redis/redischi-ji-hua-ji-zhi-de-jiang-jie/yi-tong-bi-jiao.md)
-  * [哨兵机制详解](redis/shao-bing-ji-zhi-xiang-jie.md)
-    * 哨兵使用架构
-    * 哨兵如何监控redis
+  * [哨兵机制详解（sentinel）](redis/shao-bing-ji-zhi-xiang-jie.md)
+    * [哨兵使用架构](redis/shao-bing-ji-zhi-xiang-jie/shao-bing-shi-yong-jia-gou.md)
+    * [哨兵如何监控redis](redis/shao-bing-ji-zhi-xiang-jie/shao-bing-ru-he-jian-kong-redis.md)
     * 哨兵如何高可用
     * 哨兵内部通讯原理
     * 基于哨兵的redis高可用架构
@@ -29,7 +29,7 @@
     * 架构分析
     * 搭建高可用集群
     * 分区存储详解
-    * java客户端使用redisCluster
+    * [java客户端使用redisCluster](redis/redisclusterji-qun/javake-hu-duan-shi-yong-rediscluster.md)
   * [实战场景](redis/shi-zhan-chang-jing.md)
     * 高性能分布式缓存
     * 实现定时消息通知
