@@ -17,7 +17,7 @@
   * [redis持计划机制的讲解](redis/redischi-ji-hua-ji-zhi-de-jiang-jie.md)
     * [持久化](redis/redischi-ji-hua-ji-zhi-de-jiang-jie/chi-jiu-hua.md)
     * [RDB详解](redis/redischi-ji-hua-ji-zhi-de-jiang-jie/rdbxiang-jie.md)
-    * AOF详解
+    * [AOF详解](redis/redischi-ji-hua-ji-zhi-de-jiang-jie/aofxiang-jie.md)
     * 异同比较
   * [哨兵机制详解](redis/shao-bing-ji-zhi-xiang-jie.md)
     * 哨兵使用架构

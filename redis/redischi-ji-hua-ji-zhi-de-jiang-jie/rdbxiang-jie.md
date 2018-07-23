@@ -90,6 +90,16 @@ $ redis-server
 [7379] 30 Aug 21:07:01.289 * Tbe server is now ready to accept connections on port 6379
 ```
 
+## 快照的运作方式
+
+当 Redis 需要保存dump.rdb文件时， 服务器执行以下操作：
+
+1. Redis 调用fork\(\)，同时拥有父进程和子进程。
+2. 子进程将数据集写入到一个临时 RDB 文件中。
+3. 当子进程完成对新 RDB 文件的写入时，Redis 用新 RDB 文件替换原来的 RDB 文件，并删除旧的 RDB 文件。
+
+这种工作方式使得 Redis 可以从写时复制（copy-on-write）机制中获益。
+
 ## SAVE命令执行时的服务器状态
 
 前面提到过，当SAVE命令执行时，Redis服务器会被阻塞，所以当SAVE命令正在执行时，客户端发送的所有命令请求都会被拒绝只有在服务器执行完SAVE命令、重新开始接受命令请求之后，客户端发送的命令才会被处理。
