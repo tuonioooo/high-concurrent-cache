@@ -18,7 +18,7 @@
     * [持久化](redis/redischi-ji-hua-ji-zhi-de-jiang-jie/chi-jiu-hua.md)
     * [RDB详解](redis/redischi-ji-hua-ji-zhi-de-jiang-jie/rdbxiang-jie.md)
     * [AOF详解](redis/redischi-ji-hua-ji-zhi-de-jiang-jie/aofxiang-jie.md)
-    * 异同比较
+    * [RDB与AOF异同比较](redis/redischi-ji-hua-ji-zhi-de-jiang-jie/yi-tong-bi-jiao.md)
   * [哨兵机制详解](redis/shao-bing-ji-zhi-xiang-jie.md)
     * 哨兵使用架构
     * 哨兵如何监控redis
