@@ -41,5 +41,45 @@ RDB 持久化功能所生成的RDB 文件是一个经过压缩的二进制文件
 
 > 在数据集比较庞大时、并且 CPU 时间非常紧张的话，RDB可能会造成数据损失）
 
+## RDB 快照文件的创建与载入
 
+在默认情况下， Redis 将数据库快照保存在名字为dump.rdb的二进制文件中。
+
+你可以对 Redis 进行设置， 让它在“N秒内数据集至少有M个改动”这一条件被满足时， 自动保存一次数据集。
+
+你也可以通过调用[_SAVE_](http://doc.redisfans.com/server/save.html#save)或者[_BGSAVE_](http://doc.redisfans.com/server/bgsave.html#bgsave)， 手动让 Redis 进行数据集保存操作。
+
+比如说， 以下设置会让 Redis 在满足“60秒内有至少有1000个键被改动”这一条件时， 自动保存一次数据集：
+
+```
+save 60 1000
+```
+
+这种持久化方式被称为快照（snapshot）。
+
+创建RDB文件的实际工作由rdb.c/rdbSave函数完成，SAVE命令和BGSAVE命令会以不同的方式调用这个函数，通过以下伪代码可以明显地看出这两个命令之间的区别
+
+```
+def SAVE() 
+#创建RDB 文件
+rdbSave()
+def BGSAVE()
+#创建子进程
+pid = fork()
+if pid==0
+#子进程负责创建RDB 文件
+rdbSave()
+#完成之后向父进程发送信号
+signal_parent ()
+elif pid>0
+#父进程继续处理命令请求，并通过轮询等待子进程的信号
+handle_request_and_wait_signal()
+else
+#处理出错情况
+handle_fork_error()
+```
+
+和使用SAVE命令或者BGSAVE命令创建RDB文件不同，RDB 文件的载入工作是在服务启动时自动执行的，所以Redis并没有专门用于载入RDB文件的命令，只要Redis服务器在启动时检测到RDB文件存在，它就会自动载入RDB文件
+
+以下是Redis服务器启动时打印的日志记录，其中第二条日志DB loaded from disk就是服务器在成功载入RDB 文件之后打印的
 
