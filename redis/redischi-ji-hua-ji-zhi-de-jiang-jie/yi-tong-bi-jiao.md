@@ -45,3 +45,10 @@
 
 
 
+## 优缺点比较
+
+* [AOF详解](/redis/redischi-ji-hua-ji-zhi-de-jiang-jie/aofxiang-jie.md)
+* [RDB详解](/redis/redischi-ji-hua-ji-zhi-de-jiang-jie/rdbxiang-jie.md)
+
+
+
