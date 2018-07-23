@@ -69,7 +69,7 @@
   * [一致性哈希算法原理](memcached/yi-zhi-xing-ha-xi-suan-fa-yuan-li.md)
   * [Memcache 高可用集群之magent实现主从](memcached/magentshi-xian-memcache-zhu-cong.md)
 * [互联网缓存架构设计](hu-lian-wang-huan-cun-jia-gou-she-ji.md)
-  * 常见的缓存架构方案
-  * 缓存雪崩的解决方案
-  * 缓存穿透的解决方案
+  * [常见的缓存架构方案](hu-lian-wang-huan-cun-jia-gou-she-ji/chang-jian-de-huan-cun-jia-gou-fang-an.md)
+  * [缓存雪崩的解决方案](hu-lian-wang-huan-cun-jia-gou-she-ji/huan-cun-xue-beng-de-jie-jue-fang-an.md)
+  * [缓存穿透的解决方案](hu-lian-wang-huan-cun-jia-gou-she-ji/huan-cun-chuan-tou-de-jie-jue-fang-an.md)
 
