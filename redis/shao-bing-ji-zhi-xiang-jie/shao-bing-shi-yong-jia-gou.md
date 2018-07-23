@@ -8,7 +8,7 @@
 
 ![](/assets/import-sentinel-02.png)![](/assets/import.png)
 
-## 哨兵工作原理
+## 哨兵工作原理/哨兵如何监控redis
 
 Sentinel 通过配置文件发现Master，如下：
 
