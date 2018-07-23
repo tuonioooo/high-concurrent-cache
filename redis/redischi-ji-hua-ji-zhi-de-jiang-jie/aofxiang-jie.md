@@ -71,6 +71,24 @@ AOF 重写和 RDB 创建快照一样，都巧妙地利用了写时复制机制�
 4. 当子进程完成重写工作时，它给父进程发送一个信号，父进程在接收到信号之后，将内存缓存中的所有数据追加到新 AOF 文件的末尾。
 5. 搞定！现在 Redis 原子地用新文件替换旧文件，之后所有命令都会直接追加到新 AOF 文件的末尾。
 
+## 只进行追加操作的文件（append-only file，AOF）
+
+快照功能并不是非常耐久（durable）： 如果 Redis 因为某些原因而造成故障停机， 那么服务器将丢失最近写入、且仍未保存到快照中的那些数据。
+
+尽管对于某些程序来说， 数据的耐久性并不是最重要的考虑因素， 但是对于那些追求完全耐久能力（full durability）的程序来说， 快照功能就不太适用了。
+
+从 1.1 版本开始， Redis 增加了一种完全耐久的持久化方式： AOF 持久化。
+
+你可以通过修改配置文件来打开 AOF 功能：
+
+```
+appendonly yes
+```
+
+从现在开始， 每当 Redis 执行一个改变数据集的命令时（比如[_SET_](http://doc.redisfans.com/string/set.html#set)）， 这个命令就会被追加到 AOF 文件的末尾。
+
+这样的话， 当 Redis 重新启时， 程序就可以通过重新执行 AOF 文件中的命令来达到重建数据集的目的。
+
 ## 补充
 
 见文档：[http://redisbook.readthedocs.io/en/latest/internal/aof.html](http://redisbook.readthedocs.io/en/latest/internal/aof.html)
