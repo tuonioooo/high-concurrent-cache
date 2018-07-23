@@ -26,7 +26,7 @@
     * [哨兵内部通讯原理/自动发现 Sentinel 和从服务器](redis/shao-bing-ji-zhi-xiang-jie/shao-bing-nei-bu-tong-xun-yuan-li.md)
     * [基于哨兵的redis高可用架构](redis/shao-bing-ji-zhi-xiang-jie/ji-yu-shao-bing-de-redis-gao-ke-yong-jia-gou.md)
   * [redisCluster集群](redis/redisclusterji-qun.md)
-    * 架构分析
+    * [架构分析](redis/redisclusterji-qun/jia-gou-fen-xi.md)
     * 搭建高可用集群
     * 分区存储详解
     * [java客户端使用redisCluster](redis/redisclusterji-qun/javake-hu-duan-shi-yong-rediscluster.md)
