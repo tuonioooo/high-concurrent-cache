@@ -57,7 +57,9 @@ save 60 1000
 
 这种持久化方式被称为快照（snapshot）。
 
-创建RDB文件的实际工作由rdb.c/rdbSave函数完成，SAVE命令和BGSAVE命令会以不同的方式调用这个函数，通过以下伪代码可以明显地看出这两个命令之间的区别
+> 注意：
+>
+> 创建RDB文件的实际工作由rdb.c/rdbSave函数完成，SAVE命令和BGSAVE命令会以不同的方式调用这个函数，通过以下伪代码可以明显地看出这两个命令之间的区别
 
 ```
 def SAVE() 
@@ -79,7 +81,16 @@ else
 handle_fork_error()
 ```
 
-和使用SAVE命令或者BGSAVE命令创建RDB文件不同，RDB 文件的载入工作是在服务启动时自动执行的，所以Redis并没有专门用于载入RDB文件的命令，只要Redis服务器在启动时检测到RDB文件存在，它就会自动载入RDB文件
+> 和使用SAVE命令或者BGSAVE命令创建RDB文件不同，RDB 文件的载入工作是在服务启动时自动执行的，所以Redis并没有专门用于载入RDB文件的命令，只要Redis服务器在启动时检测到RDB文件存在，它就会自动载入RDB文件以下是Redis服务器启动时打印的日志记录，其中第二条日志DB loaded from disk就是服务器在成功载入RDB 文件之后打印的
 
-以下是Redis服务器启动时打印的日志记录，其中第二条日志DB loaded from disk就是服务器在成功载入RDB 文件之后打印的
+```
+$ redis-server
+[7379] 30 Aug 21:07:01.270 # Server started, Redis version 2.9.11
+[7379] 30 Aug 21:07:01.289 * DB loaded from disk : 0.018 seconds
+[7379] 30 Aug 21:07:01.289 * Tbe server is now ready to accept connections on port 6379
+```
+
+## SAVE命令执行时的服务器状态
+
+前面提到过，当SAVE命令执行时，Redis服务器会被阻塞，所以当SAVE命令正在执行时，客户端发送的所有命令请求都会被拒绝只有在服务器执行完SAVE命令、重新开始接受命令请求之后，客户端发送的命令才会被处理
 
