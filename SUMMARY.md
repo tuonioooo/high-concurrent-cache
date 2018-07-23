@@ -31,13 +31,13 @@
     * [分区存储详解](redis/redisclusterji-qun/fen-qu-cun-chu-xiang-jie.md)
     * [java客户端使用redisCluster](redis/redisclusterji-qun/javake-hu-duan-shi-yong-rediscluster.md)
   * [实战场景](redis/shi-zhan-chang-jing.md)
-    * 高性能分布式缓存
+    * [高性能分布式缓存](redis/shi-zhan-chang-jing/gao-xing-neng-fen-bu-shi-huan-cun.md)
     * [实现定时消息通知](redis/shi-zhan-chang-jing/shi-xian-ding-shi-xiao-xi-tong-zhi.md)
     * [简单高速队列的实现与应用](redis/shi-zhan-chang-jing/jian-dan-gao-su-dui-lie-de-shi-xian-yu-ying-yong.md)
     * [实现去重幂等性](redis/shi-zhan-chang-jing/shi-xian-qu-zhong-mi-deng-xing.md)
     * [数据计数/订单号生成](redis/shi-zhan-chang-jing/shu-ju-ji-6570-ding-dan-hao-sheng-cheng.md)
     * [基于redis实现分布式锁](redis/shi-zhan-chang-jing/ji-yu-redis-shi-xian-fen-bu-shi-suo.md)
-    * 排序
+    * [排行榜](redis/shi-zhan-chang-jing/pai-xu.md)
 * [Memcached](memcached.md)
   * [Memcached概念](memcached/memcachedgai-nian.md)
   * [安装配置](memcached/an-zhuang-pei-zhi.md)
