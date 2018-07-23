@@ -26,24 +26,16 @@
 
 在 Redis 2.2 或以上版本，可以在不重启的情况下，从 RDB 切换到 AOF ：
 
-1. 为最新的
-   dump.rdb
-   文件创建一个备份。
+1. 为最新的dump.rdb文件创建一个备份。
 2. 将备份放到一个安全的地方。
 3. 执行以下两条命令：
-
-> ```
-> redis-cli
-> >
->  CONFIG SET appendonly yes
->
-> redis-cli
-> >
->  CONFIG SET save ""
-> ```
-
-1. 确保命令执行之后，数据库的键的数量没有改变。
-2. 确保写命令会被正确地追加到 AOF 文件的末尾。
+4. > ```
+   > redis-cli> CONFIG SET appendonly yes
+   >
+   > redis-cli> CONFIG SET save ""
+   > ```
+5. 确保命令执行之后，数据库的键的数量没有改变。
+6. 确保写命令会被正确地追加到 AOF 文件的末尾。
 
 步骤 3 执行的第一条命令开启了 AOF 功能： Redis 会阻塞直到初始 AOF 文件创建完成为止， 之后 Redis 会继续处理命令请求， 并开始将写入命令追加到 AOF 文件末尾。
 
