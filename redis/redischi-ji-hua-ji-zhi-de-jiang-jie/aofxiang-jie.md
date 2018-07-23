@@ -52,16 +52,12 @@ Redis 2.2 需要自己手动执行 BGREWRITEAOF 命令； Redis 2.4 则可以自
 当发生这种情况时， 可以用以下方法来修复出错的 AOF 文件：
 
 1. 为现有的 AOF 文件创建一个备份。
-2. 使用 Redis 附带的
-   redis-check-aof
-   程序，对原来的 AOF 文件进行修复。
-
-> ```
-> $ redis-check-aof --fix
-> ```
-
-1. （可选）使用_**diff -u **_对比修复后的 AOF 文件和原始 AOF 文件的备份，查看两个文件之间的不同之处。
-2. 重启 Redis 服务器，等待服务器载入修复后的 AOF 文件，并进行数据恢复。
+2. 使用 Redis 附带的redis-check-aof程序，对原来的 AOF 文件进行修复。
+3. > ```
+   > $ redis-check-aof --fix
+   > ```
+4. （可选）使用_**diff -u **_对比修复后的 AOF 文件和原始 AOF 文件的备份，查看两个文件之间的不同之处。
+5. 重启 Redis 服务器，等待服务器载入修复后的 AOF 文件，并进行数据恢复。
 
 
 
