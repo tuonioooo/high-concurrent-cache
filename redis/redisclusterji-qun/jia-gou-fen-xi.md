@@ -20,15 +20,15 @@
 
 > \(1\)选举过程是集群中所有master参与,如果半数以上master节点与故障节点通信超过\(cluster-node-timeout\),认为该节点故障，自动触发故障转移操作.
 >
-> \(2\):什么时候整个集群不可用\(cluster\_state:fail\)? 
+> \(2\):什么时候整个集群不可用\(cluster\_state:fail\)?
 >
->     a:如果集群任意master挂掉,且当前master没有slave.集群进入fail状态,也可以理解成集群的slot映射\[0-16383\]不完整时进入fail状态.
+> a:如果集群任意master挂掉,且当前master没有slave.集群进入fail状态,也可以理解成集群的slot映射\\[0-16383\\]不完整时进入fail状态.
 >
-> ps : redis-3.0.0.rc1加入cluster-require-full-coverage参数,默认关闭,打开集群兼容部分失败.
+> 注意 : redis-3.0.0.rc1加入cluster-require-full-coverage参数,默认关闭,打开集群兼容部分失败.
 >
->     b:如果集群超过半数以上master挂掉，无论是否有slave集群进入fail状态.
+> b:如果集群超过半数以上master挂掉，无论是否有slave集群进入fail状态.
 >
-> ps:当集群不可用时,所有对集群的操作做都不可用，收到\(\(error\) CLUSTERDOWN The cluster is down\)错误
+> 注意:当集群不可用时,所有对集群的操作做都不可用，收到\(\(error\) CLUSTERDOWN The cluster is down\)错误
 
 ## 详细内容
 
