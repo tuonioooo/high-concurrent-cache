@@ -21,7 +21,7 @@
     * [RDB与AOF异同比较](redis/redischi-ji-hua-ji-zhi-de-jiang-jie/yi-tong-bi-jiao.md)
   * [哨兵机制详解（sentinel）](redis/shao-bing-ji-zhi-xiang-jie.md)
     * [哨兵使用架构（sentinel）](redis/shao-bing-ji-zhi-xiang-jie/shao-bing-shi-yong-jia-gou.md)
-    * [哨兵如何监控redis](redis/shao-bing-ji-zhi-xiang-jie/shao-bing-ru-he-jian-kong-redis.md)
+    * [哨兵工作原理/哨兵如何监控redis](redis/shao-bing-ji-zhi-xiang-jie/shao-bing-ru-he-jian-kong-redis.md)
     * 哨兵如何高可用
     * 哨兵内部通讯原理
     * 基于哨兵的redis高可用架构
