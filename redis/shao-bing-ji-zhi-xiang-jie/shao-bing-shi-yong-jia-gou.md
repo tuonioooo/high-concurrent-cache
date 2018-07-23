@@ -16,10 +16,6 @@ Sentinel（哨兵）是Redis 的高可用性解决方案：由一个或多个Sen
 
 ![](https://images2015.cnblogs.com/blog/1053081/201612/1053081-20161230154428320-1980223016.png)
 
-
-
-
-
 ## 哨兵经典架构
 
 ![](/assets/import-sentinel-01.png)
