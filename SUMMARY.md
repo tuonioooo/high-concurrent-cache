@@ -37,6 +37,7 @@
     * [实现去重幂等性](redis/shi-zhan-chang-jing/shi-xian-qu-zhong-mi-deng-xing.md)
     * [数据计数/订单号生成](redis/shi-zhan-chang-jing/shu-ju-ji-6570-ding-dan-hao-sheng-cheng.md)
     * [基于redis实现分布式锁](redis/shi-zhan-chang-jing/ji-yu-redis-shi-xian-fen-bu-shi-suo.md)
+    * 排序
 * [Memcached](memcached.md)
   * [Memcached概念](memcached/memcachedgai-nian.md)
   * [安装配置](memcached/an-zhuang-pei-zhi.md)
