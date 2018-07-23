@@ -15,7 +15,7 @@
     * [配置方式](redis/rediszhu-cong-mo-shi/pei-zhi-fang-shi.md)
     * [一主多从读写分离架构](redis/rediszhu-cong-mo-shi/yi-zhu-duo-cong.md)
   * [redis持计划机制的讲解](redis/redischi-ji-hua-ji-zhi-de-jiang-jie.md)
-    * RDB详解
+    * [RDB详解](redis/redischi-ji-hua-ji-zhi-de-jiang-jie/rdbxiang-jie.md)
     * AOF详解
     * 异同比较
   * [哨兵机制详解](redis/shao-bing-ji-zhi-xiang-jie.md)
