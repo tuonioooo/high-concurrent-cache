@@ -73,5 +73,5 @@ AOF 重写和 RDB 创建快照一样，都巧妙地利用了写时复制机制�
 
 ## 补充
 
-参考文档：[http://redisbook.readthedocs.io/en/latest/internal/aof.html](http://redisbook.readthedocs.io/en/latest/internal/aof.html)
+见文档：[http://redisbook.readthedocs.io/en/latest/internal/aof.html](http://redisbook.readthedocs.io/en/latest/internal/aof.html)
 
