@@ -122,82 +122,85 @@ save 60 10000
 ```
 
 那么只要满足以下三个条件中的任意一个，BGSAVE命令就会被执行  
-服务器在900秒之内，对数据库进行了至少1次修改  
-服务器在300秒之内，对数据库进行了至少10次修改　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+服务器在900秒之内，对数据库进行了至少1次修改
 
-服务器在60秒之内，对数据库进行了至少10000次修改。  
+服务器在300秒之内，对数据库进行了至少10次修改
 
+服务器在60秒之内，对数据库进行了至少10000次修改
 
 举个例子，以下是Redis服务器在60秒之内，对数据库进行了至少10000次修改之后，服务器自动执行BGSAVE命令时打印出来的日志:
 
 ```
-[
-5085
-] 
-03
- Sep 
-17
-:
-09
-:
-49.463
- * 
-10000
- changes 
-in
-60
- seconds . Saving ...
-[
-5085
-] 
-03
- Sep 
-17
-:
-09
-:
-49.463
- * Background saving started by pid 
-5189
-
-[
-5189
-] 
-03
- Sep 
-17
-:
-09
-:
-49.522
- • DB saved on disk
-[
-5189
-] 
-03
- Sep 
-17
-:
-09
-:
-49.522
- • RDB: 
-0
- MB of memory used by copy-on-
-write
-
-[
-5085
-] 
-03
- Sep 
-17
-:
-09
-:
-49.563
- • Background saving terminated with succes
+[5085] 03 Sep 17:09:49.463 * 10000 changes in 60 seconds . Saving ...
+[5085] 03 Sep 17:09:49.463 * Background saving started by pid 5189
+[5189] 03 Sep 17:09:49.522 • DB saved on disk
+[5189] 03 Sep 17:09:49.522 • RDB: 0 MB of memory used by copy-on-write
+[5085] 03 Sep 17:09:49.563 • Background saving terminated with succes
 ```
 
+## 设置保存条件
 
+当Redis服务器启动时，用户可以通过指定配置文件或者传人启动参数的方式设置save选项，如果用户没有主动设置save选项，那么服务帮会为save选项设置默认条件:
+
+```
+save 900 1
+save 300 10
+save 60 10000
+```
+
+接着，服务器程序会根据save选项所设置的保存条件，设置服务器状态redisServer结构的saveparams属性:
+
+```
+struct redisServer {
+//...
+//记录了保存条件的数组
+struct saveparam *saveparams;
+//...
+};
+```
+
+saveparams属性是一个数组，数组中的每个元素都是一个saveparam结构，每个saveparam结构都保存了一个save选项设置的保存条件:
+
+```
+struct saveparam {
+//秒数
+time_t seconds;
+//修改数
+int changes;
+};
+```
+
+比如说，如果save选项的值为以下条件:
+
+```
+save 900 1
+save 300 10
+save 60 10000
+```
+
+那么服务器状态中的saveparams数组将会是图10-6所示的样子。
+
+## ![](/assets/import-rdb-01.png)dirty计数器和lastsave属性
+
+除了saveparams数组之外，服务器状态还维持着一个dirty计数器，以及一个lastsave属性:
+
+dirty计数器记录距离上一次成功执行SAVE命令或者BGSAVE命令之后，服务器对数据库状态\(服务器中的所有数据库\)进行了多少次修改\(包括写入、删除、更新等操作\)。  
+lastsave属性是一个UNIX时间戳，记录了服务器上一次成功执行SAVE命令或者BGSAVE命令的时间。
+
+当服务器成功执行一个数据库修改命令之后，程序就会对dirty计数器进行更新:命令修改了多少次数据库.dirty计数器的值就增加多少。  
+例如，如果我们为一个字符串键设置值:
+
+```
+redis>SET message "hello"
+OK
+```
+
+那么程序会将dirty计数器的值增加1。又例如，如果我们向一个集合键增加三个新元素:
+
+```
+redis>SADD database Redis MongoDB MariaDB
+(integer) 3
+```
+
+那么程序会将dirty计数器的值增加3.
 
