@@ -102,4 +102,18 @@ public static long getOrderId() {
     return Long.valueOf(new StringBuffer().append(ordernoIndex).append(String.valueOf(orderId)).toString());
 }
 ```
+>订单前缀可以设置在订单中心或配置文件里，这样可以在不同环境获得不同的订单号，避免因不同数据中心，导致出现订单号重复的情况。 
 
+　　JedisManager.incr（）方法，该方法是订单号生成的一个亮点，也是支持能够高并发的主要原因。
+
+　　Incr 命令会将 redis的key 中储存的数字值增一。
+
+　　decr 命令会将 redis的key 中存储的数字值减一。
+
+　　如果 key 不存在，那么 key 的值会先被初始化为 0 ，然后再执行 INCR / DECR 操作。
+
+　　如果值包含错误的类型，或字符串类型的值不能表示为数字，那么返回一个错误。
+
+　　之前看到过说 Incr 命令最高支持每秒1000万级别的递增（没有测试过），且该命令支持原子性，用来生成订单号来说还是比较轻松的。
+
+　　同样的该方式也适用于 ”秒杀“库存的递减 等场景。　
