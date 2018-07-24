@@ -192,61 +192,216 @@ User.java
 
 ```
 package com.duobei.model;
- 
+
 import java.io.Serializable;
- 
+
 public class User implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+
+    private String id;                //编号
+    private String name;            //姓名
+    private double score;            //得分
+    private int rank;                //排名
+
+    public User() {
+
+    }
+
+    public User(String id, String name, double score) {
+        this.id = id;
+        this.name = name;
+        this.score = score;
+    }
+
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public double getScore() {
+        return score;
+    }
+    public void setScore(double score) {
+        this.score = score;
+    }
+    public int getRank() {
+        return rank;
+    }
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+
+    @Override
+    public String toString() {
+        return "User [id=" + id + ", name=" + name + ", score=" + score
+                + ", rank=" + rank + "]";
+    }
+
+}
+```
+
+自定义序列化封装类
+
+```
+package com.duobei.tools;
  
-	private String id;				//编号
-	private String name;			//姓名
-	private double score;			//得分
-	private int rank;				//排名
-	
-	public User() {
-		
-	}
-	
-	public User(String id, String name, double score) {
-		this.id = id;
-		this.name = name;
-		this.score = score;
-	}
-	
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public double getScore() {
-		return score;
-	}
-	public void setScore(double score) {
-		this.score = score;
-	}
-	public int getRank() {
-		return rank;
-	}
-	public void setRank(int rank) {
-		this.rank = rank;
-	}
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
  
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", score=" + score
-				+ ", rank=" + rank + "]";
-	}
+public class ObjectSer {
  
+	/**
+	 * 对象序列化
+	 * @param obj
+	 * @return
+	 */
+	public static byte[] ObjectToByte(Object obj) {
+		byte[] bytes = null;
+		try {
+			ByteArrayOutputStream bo = new ByteArrayOutputStream();
+			ObjectOutputStream oo = new ObjectOutputStream(bo);
+			oo.writeObject(obj);
+			bytes = bo.toByteArray();
+			bo.close();
+			oo.close();  
+		}
+		catch(Exception e) { 
+			e.printStackTrace();
+		}
+		return bytes;
+    }
+	
+	/**
+	 * 反序列化
+	 * @param bytes
+	 * @return
+	 */
+	public static Object ByteToObject(byte[] bytes) {
+		Object object = null;
+		try {
+			ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+			ObjectInputStream ois = new ObjectInputStream(bais);
+			object = ois.readObject();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return object;
+	}
 }
 
 ```
 
+测试类
 
+```
+package com.duobei.test;
+ 
+ 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+ 
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+ 
+import redis.clients.jedis.ShardedJedis;
+import redis.clients.jedis.ShardedJedisPool;
+ 
+import com.duobei.model.User;
+import com.duobei.tools.ObjectSer;
+ 
+public class RankingTest {
+ 
+	private ApplicationContext context;
+	private ShardedJedisPool shardedJedisPool;
+	private ShardedJedis jedis;
+ 
+	public RankingTest() {
+ 
+	}
+ 
+	@Before
+	public void init() throws Exception {
+ 
+		String config[] = { "applicationContext.xml" };
+		context = new ClassPathXmlApplicationContext(config);
+ 
+		shardedJedisPool = (ShardedJedisPool) context.getBean("shardedJedisPool");
+		jedis = (ShardedJedis) shardedJedisPool.getResource();
+		
+	}
+	
+	@Test
+	@Ignore
+	public void rankAdd() {
+		User user1 = new User("12345", "常少鹏", 99.9);
+		User user2 = new User("12346", "王卓卓", 99.8);
+		User user3 = new User("12347", "邹雨欣", 96.8);
+		User user4 = new User("12348", "郑伟山", 98.8);
+		User user5 = new User("12349", "李超杰", 99.6);
+		User user6 = new User("12350", "董明明", 99.0);
+		User user7 = new User("12351", "陈国峰", 100.0);
+		User user8 = new User("12352", "楚晓丽", 99.6);
+		jedis.zadd("game".getBytes(), user1.getScore(), ObjectSer.ObjectToByte(user1));
+		jedis.zadd("game".getBytes(), user2.getScore(), ObjectSer.ObjectToByte(user2));
+		jedis.zadd("game".getBytes(), user3.getScore(), ObjectSer.ObjectToByte(user3));
+		jedis.zadd("game".getBytes(), user4.getScore(), ObjectSer.ObjectToByte(user4));
+		jedis.zadd("game".getBytes(), user5.getScore(), ObjectSer.ObjectToByte(user5));
+		jedis.zadd("game".getBytes(), user6.getScore(), ObjectSer.ObjectToByte(user6));
+		jedis.zadd("game".getBytes(), user7.getScore(), ObjectSer.ObjectToByte(user7));
+		jedis.zadd("game".getBytes(), user8.getScore(), ObjectSer.ObjectToByte(user8));
+	}
+		
+	@Test
+	//@Ignore
+	public void gameRankShow() {
+		Set<byte[]> set = jedis.zrevrange("game".getBytes(), 0, -1);
+		Iterator<byte[]> iter = set.iterator();
+	
+		int i = 1;
+		List<User> list = new ArrayList<User>();
+		while(iter.hasNext()) {
+			User user = (User) ObjectSer.ByteToObject(iter.next());
+			user.setRank(i++);
+			list.add(user);
+		}
+		
+		for(User user : list) 
+			System.out.println(user);
+	}
+	
+}
+
+```
+
+测试结果
+
+```
+User [id=12351, name=陈国峰, score=100.0, rank=1]
+User [id=12345, name=常少鹏, score=99.9, rank=2]
+User [id=12346, name=王卓卓, score=99.8, rank=3]
+User [id=12352, name=楚晓丽, score=99.6, rank=4]
+User [id=12349, name=李超杰, score=99.6, rank=5]
+User [id=12350, name=董明明, score=99.0, rank=6]
+User [id=12348, name=郑伟山, score=98.8, rank=7]
+User [id=12347, name=邹雨欣, score=96.8, rank=8]
+
+```
+
+* ## 补充
+
+先关SortedSet集合请参考，官方文档：[http://doc.redisfans.com/sorted\_set/index.html](http://doc.redisfans.com/sorted_set/index.html)
 
