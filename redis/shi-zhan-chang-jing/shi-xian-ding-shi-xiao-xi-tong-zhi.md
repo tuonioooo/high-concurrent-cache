@@ -126,7 +126,6 @@ public class SubThread extends Thread {
         }
     }
 }
-
 ```
 
 * ### 定义SubThread线程类
@@ -168,7 +167,6 @@ public class Publisher {
          }
     }
 }
-
 ```
 
 在上面的代码中，我们从`JedisPool`获取一个`Jedis`实例，并使用这个`Jedis`实例进行`subscribe`的操作。  
@@ -248,7 +246,6 @@ public class PubSubDemo
         publisher.start();
     }
 }
-
 ```
 
 在上面的代码中，我们首先生成了一个`JedisPool`的redis连接池，这是由于`Jedis`不是线程安全的，`JedisPool`是线程安全的。而我们的程序在主线程和订阅线程\(SubThread\)均需要使用`Jedis`，故在程序中我们使用`JedisPool`。具体也可以参考[在多线程环境中使用Jedis](http://blog.csdn.net/lihao21/article/details/46830553)。  
@@ -273,8 +270,7 @@ public class PubSubDemo
 
 * [https://github.com/xetorthio/jedis/wiki/AdvancedUsage](https://github.com/xetorthio/jedis/wiki/AdvancedUsage)
 * [http://basrikahveci.com/a-simple-jedis-publish-subscribe-example/](http://basrikahveci.com/a-simple-jedis-publish-subscribe-example/)
-
-
+* [https://blog.csdn.net/canot/article/details/51938955](https://blog.csdn.net/canot/article/details/51938955)       java的实现方式
 
 
 
