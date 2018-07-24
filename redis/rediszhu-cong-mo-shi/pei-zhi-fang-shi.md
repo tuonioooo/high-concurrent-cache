@@ -4,13 +4,11 @@
 
 官方地址（各种版本redis.conf配置详解）：[https://redis.io/topics/config](https://redis.io/topics/config)
 
-
-
 ## **示例redis.conf**
 
 ```
 # redis 配置文件示例
- 
+
 # 当你需要为某个配置项指定内存大小的时候，必须要带上单位，
 # 通常的格式就是 1k 5gb 4m 等酱紫：
 #
@@ -22,9 +20,9 @@
 # 1gb => 1024*1024*1024 bytes
 #
 # 单位是不区分大小写的，你写 1K 5GB 4M 也行
- 
+
 ################################## INCLUDES ###################################
- 
+
 # 假如说你有一个可用于所有的 redis server 的标准配置模板，
 # 但针对某些 server 又需要一些个性化的设置，
 # 你可以使用 include 来包含一些其他的配置文件，这对你来说是非常有用的。
@@ -35,26 +33,26 @@
 #
 # include /path/to/local.conf
 # include /path/to/other.conf
- 
+
 ################################ 常用 #####################################
- 
+
 # 默认情况下 redis 不是作为守护进程运行的，如果你想让它在后台运行，你就把它改成 yes。
 # 当redis作为守护进程运行的时候，它会写一个 pid 到 /var/run/redis.pid 文件里面。daemonize no
- 
+
 # 当redis作为守护进程运行的时候，它会把 pid 默认写到 /var/run/redis.pid 文件里面，
 # 但是你可以在这里自己制定它的文件位置。
 pidfile /var/run/redis.pid
- 
+
 # 监听端口号，默认为 6379，如果你设为 0 ，redis 将不在 socket 上监听任何客户端连接。
 port 6379
- 
+
 # TCP 监听的最大容纳数量
 #
 # 在高并发的环境下，你需要把这个值调高以避免客户端连接缓慢的问题。
 # Linux 内核会一声不响的把这个值缩小成 /proc/sys/net/core/somaxconn 对应的值，
 # 所以你要修改这两个值才能达到你的预期。
 tcp-backlog 511
- 
+
 # 默认情况下，redis 在 server 上所有有效的网络接口上监听客户端连接。
 # 你如果只想让它在一个网络接口上监听，那你就绑定一个IP或者多个IP。
 #
@@ -62,15 +60,15 @@ tcp-backlog 511
 #
 # bind 192.168.1.100 10.0.0.1
 # bind 127.0.0.1
- 
+
 # 指定 unix socket 的路径。
 #
 # unixsocket /tmp/redis.sock
 # unixsocketperm 755
- 
+
 # 指定在一个 client 空闲多少秒之后关闭连接（0 就是不管它）
 timeout 0
- 
+
 # tcp 心跳包。
 #
 # 如果设置为非零，则在与客户端缺乏通讯的时候使用 SO_KEEPALIVE 发送 tcp acks 给客户端。
@@ -87,32 +85,32 @@ timeout 0
 # A reasonable value for this option is 60 seconds.
 # 推荐一个合理的值就是60秒
 tcp-keepalive 0
- 
+
 # 定义日志级别。
 # 可以是下面的这些值：
 # debug (适用于开发或测试阶段)
 # verbose (many rarely useful info, but not a mess like the debug level)
 # notice (适用于生产环境)
 # warning (仅仅一些重要的消息被记录)loglevel notice
- 
+
 # 指定日志文件的位置
 logfile ""
- 
+
 # 要想把日志记录到系统日志，就把它改成 yes，
 # 也可以可选择性的更新其他的syslog 参数以达到你的要求
 # syslog-enabled no
- 
+
 # 设置 syslog 的 identity。
 # syslog-ident redis
- 
+
 # 设置 syslog 的 facility，必须是 USER 或者是 LOCAL0-LOCAL7 之间的值。
 # syslog-facility local0
- 
+
 # 设置数据库的数目。
 # 默认数据库是 DB 0，你可以在每个连接上使用 select <dbid> 命令选择一个不同的数据库，
 # 但是 dbid 必须是一个介于 0 到 databasees - 1 之间的值
 databases 16
- 
+
 ################################ 快照 ################################
 #
 # 存 DB 到磁盘：
@@ -132,7 +130,7 @@ databases 16
 save 900 1
 save 300 10
 save 60 10000
- 
+
 # 默认情况下，如果 redis 最后一次的后台保存失败，redis 将停止接受写操作，
 # 这样以一种强硬的方式让用户知道数据不能正确的持久化到磁盘，
 # 否则就会没人注意到灾难的发生。
@@ -141,31 +139,31 @@ save 60 10000
 #
 # 然而你要是安装了靠谱的监控，你可能不希望 redis 这样做，那你就改成 no 好了。
 stop-writes-on-bgsave-error yes
- 
+
 # 是否在 dump .rdb 数据库的时候使用 LZF 压缩字符串
 # 默认都设为 yes
 # 如果你希望保存子进程节省点 cpu ，你就设置它为 no ，
 # 不过这个数据集可能就会比较大rdbcompression yes
- 
+
 # 是否校验rdb文件rdbchecksum yes
- 
+
 # 设置 dump 的文件位置dbfilename dump.rdb
- 
+
 # 工作目录
 # 例如上面的 dbfilename 只指定了文件名，
 # 但是它会写入到这个目录下。这个配置项一定是个目录，而不能是文件名。
 dir ./
- 
+
 ################################# 主从复制 #################################
- 
+
 # 主从复制。使用 slaveof 来让一个 redis 实例成为另一个reids 实例的副本。
 # 注意这个只需要在 slave 上配置。
 #
 # slaveof <masterip> <masterport>
- 
+
 # 如果 master 需要密码认证，就在这里设置
 # masterauth <master-password>
- 
+
 # 当一个 slave 与 master 失去联系，或者复制正在进行的时候，
 # slave 可能会有两种表现：
 #
@@ -176,7 +174,7 @@ dir ./
 #    slave 都将返回一个 "SYNC with master in progress" 的错误，
 #
 slave-serve-stale-data yes
- 
+
 # 你可以配置一个 slave 实体是否接受写入操作。
 # 通过写入操作来存储一些短暂的数据对于一个 slave 实例来说可能是有用的，
 # 因为相对从 master 重新同步数而言，据数据写入到 slave 会更容易被删除。
@@ -193,12 +191,12 @@ slave-serve-stale-data yes
 # 注意：只读的 slaves 没有被设计成在 internet 上暴露给不受信任的客户端。
 # 它仅仅是一个针对误用实例的一个保护层。
 slave-read-only yes
- 
+
 # Slaves 在一个预定义的时间间隔内发送 ping 命令到 server 。
 # 你可以改变这个时间间隔。默认为 10 秒。
 #
 # repl-ping-slave-period 10
- 
+
 # The following option sets the replication timeout for:
 # 设置主从复制过期时间
 #
@@ -212,7 +210,7 @@ slave-read-only yes
 # 这个值一定要比 repl-ping-slave-period 大
 #
 # repl-timeout 60
- 
+
 # Disable TCP_NODELAY on the slave socket after SYNC?
 #
 # If you select "yes" Redis will use a smaller number of TCP packets and
@@ -227,7 +225,7 @@ slave-read-only yes
 # or when the master and slaves are many hops away, turning this to "yes" may
 # be a good idea.
 repl-disable-tcp-nodelay no
- 
+
 # 设置主从复制容量大小。这个 backlog 是一个用来在 slaves 被断开连接时
 # 存放 slave 数据的 buffer，所以当一个 slave 想要重新连接，通常不希望全部重新同步，
 # 只是部分同步就够了，仅仅传递 slave 在断开连接时丢失的这部分数据。
@@ -239,7 +237,7 @@ repl-disable-tcp-nodelay no
 # The backlog is only allocated once there is at least a slave connected.
 #
 # repl-backlog-size 1mb
- 
+
 # After a master has no longer connected slaves for some time, the backlog
 # will be freed. The following option configures the amount of seconds that
 # need to elapse, starting from the time the last slave disconnected, for
@@ -250,13 +248,13 @@ repl-disable-tcp-nodelay no
 # 如果设置为 0 ，意味着绝不释放 backlog 。
 #
 # repl-backlog-ttl 3600
- 
+
 # 当 master 不能正常工作的时候，Redis Sentinel 会从 slaves 中选出一个新的 master，
 # 这个值越小，就越会被优先选中，但是如果是 0 ， 那是意味着这个 slave 不可能被选中。
 #
 # 默认优先级为 100。
 slave-priority 100
- 
+
 # It is possible for a master to stop accepting writes if there are less than
 # N slaves connected, having a lag less or equal than M seconds.
 #
@@ -278,9 +276,9 @@ slave-priority 100
 #
 # By default min-slaves-to-write is set to 0 (feature disabled) and
 # min-slaves-max-lag is set to 10.
- 
+
 ################################## 安全 ###################################
- 
+
 # Require clients to issue AUTH <PASSWORD> before processing any other
 # commands.  This might be useful in environments in which you do not trust
 # others with access to the host running redis-server.
@@ -294,7 +292,7 @@ slave-priority 100
 # 
 # 设置认证密码
 # requirepass foobared
- 
+
 # Command renaming.
 #
 # It is possible to change the name of dangerous commands in a shared
@@ -313,9 +311,9 @@ slave-priority 100
 #
 # Please note that changing the name of commands that are logged into the
 # AOF file or transmitted to slaves may cause problems.
- 
+
 ################################### 限制 ####################################
- 
+
 # Set the max number of connected clients at the same time. By default
 # this limit is set to 10000 clients, however if the Redis server is not
 # able to configure the process file limit to allow for the specified limit
@@ -326,7 +324,7 @@ slave-priority 100
 # 并发送一个‘max number of clients reached’的错误。
 #
 # maxclients 10000
- 
+
 # 如果你设置了这个值，当缓存的数据容量达到这个值， redis 将根据你选择的
 # eviction 策略来移除一些 keys。
 #
@@ -350,7 +348,7 @@ slave-priority 100
 #
 # 最大使用内存
 # maxmemory <bytes>
- 
+
 # 最大内存策略，你有 5 个选择。
 # 
 # volatile-lru -> remove the key with an expire set using an LRU algorithm
@@ -375,7 +373,7 @@ slave-priority 100
 # The default is:
 #
 # maxmemory-policy noeviction
- 
+
 # LRU and minimal TTL algorithms are not precise algorithms but approximated
 # algorithms (in order to save memory), so you can tune it for speed or
 # accuracy. For default Redis will check five keys and pick the one that was
@@ -386,9 +384,9 @@ slave-priority 100
 # true LRU but costs a bit more CPU. 3 is very fast but not very accurate.
 #
 # maxmemory-samples 5
- 
+
 ############################## APPEND ONLY MODE ###############################
- 
+
 # By default Redis asynchronously dumps the dataset on disk. This mode is
 # good enough in many applications, but an issue with the Redis process or
 # a power outage may result into a few minutes of writes lost (depending on
@@ -407,10 +405,10 @@ slave-priority 100
 #
 # Please check http://redis.io/topics/persistence for more information. 
 appendonly no
- 
+
 # The name of the append only file (default: "appendonly.aof") 
 appendfilename "appendonly.aof"
- 
+
 # The fsync() call tells the Operating System to actually write data on disk
 # instead to wait for more data in the output buffer. Some OS will really flush 
 # data on disk, some other OS will just try to do it ASAP.
@@ -433,10 +431,10 @@ appendfilename "appendonly.aof"
 # http://antirez.com/post/redis-persistence-demystified.html
 #
 # If unsure, use "everysec".
- 
+
 # appendfsync alwaysappendfsync everysec
 # appendfsync no
- 
+
 # When the AOF fsync policy is set to always or everysec, and a background
 # saving process (a background save or AOF log background rewriting) is
 # performing a lot of I/O against the disk, in some Linux configurations
@@ -456,7 +454,7 @@ appendfilename "appendonly.aof"
 # If you have latency problems turn this to "yes". Otherwise leave it as
 # "no" that is the safest pick from the point of view of durability. 
 no-appendfsync-on-rewrite no
- 
+
 # Automatic rewrite of the append only file.
 # Redis is able to automatically rewrite the log file implicitly calling
 # BGREWRITEAOF when the AOF log size grows by the specified percentage.
@@ -475,9 +473,9 @@ no-appendfsync-on-rewrite no
 # rewrite feature. 
 auto-aof-rewrite-percentage 100
 auto-aof-rewrite-min-size 64mb
- 
+
 ################################ LUA SCRIPTING  ###############################
- 
+
 # Max execution time of a Lua script in milliseconds.
 #
 # If the maximum execution time is reached Redis will log that a script is
@@ -493,12 +491,12 @@ auto-aof-rewrite-min-size 64mb
 #
 # Set it to 0 or a negative value for unlimited execution without warnings.
 lua-time-limit 5000
- 
+
 ################################ REDIS 集群  ###############################
 #
 # 启用或停用集群
 # cluster-enabled yes
- 
+
 # Every cluster node has a cluster configuration file. This file is not
 # intended to be edited by hand. It is created and updated by Redis nodes.
 # Every Redis Cluster node requires a different cluster configuration file.
@@ -506,13 +504,13 @@ lua-time-limit 5000
 # overlapping cluster configuration file names.
 #
 # cluster-config-file nodes-6379.conf
- 
+
 # Cluster node timeout is the amount of milliseconds a node must be unreachable 
 # for it to be considered in failure state.
 # Most other internal time limits are multiple of the node timeout.
 #
 # cluster-node-timeout 15000
- 
+
 # A slave of a failing master will avoid to start a failover if its data
 # looks too old.
 #
@@ -557,7 +555,7 @@ lua-time-limit 5000
 # the cluster will always be able to continue.
 #
 # cluster-slave-validity-factor 10
- 
+
 # Cluster slaves are able to migrate to orphaned masters, that are masters
 # that are left without working slaves. This improves the cluster ability
 # to resist to failures as otherwise an orphaned master can't be failed over
@@ -576,12 +574,12 @@ lua-time-limit 5000
 # in production.
 #
 # cluster-migration-barrier 1
- 
+
 # In order to setup your cluster make sure to read the documentation
 # available at http://redis.io web site.
- 
+
 ################################## SLOW LOG ###################################
- 
+
 # The Redis Slow Log is a system to log queries that exceeded a specified
 # execution time. The execution time does not include the I/O operations
 # like talking with the client, sending the reply and so forth,
@@ -594,18 +592,18 @@ lua-time-limit 5000
 # command to get logged, and the other parameter is the length of the
 # slow log. When a new command is logged the oldest one is removed from the
 # queue of logged commands.
- 
+
 # The following time is expressed in microseconds, so 1000000 is equivalent
 # to one second. Note that a negative number disables the slow log, while
 # a value of zero forces the logging of every command.
 slowlog-log-slower-than 10000
- 
+
 # There is no limit to this length. Just be aware that it will consume memory.
 # You can reclaim memory used by the slow log with SLOWLOG RESET.
 slowlog-max-len 128
- 
+
 ############################# Event notification ##############################
- 
+
 # Redis can notify Pub/Sub clients about events happening in the key space.
 # This feature is documented at http://redis.io/topics/keyspace-events
 # 
@@ -649,34 +647,34 @@ slowlog-max-len 128
 #  this feature and the feature has some overhead. Note that if you don't
 #  specify at least one of K or E, no events will be delivered.
 notify-keyspace-events ""
- 
+
 ############################### ADVANCED CONFIG ###############################
- 
+
 # Hashes are encoded using a memory efficient data structure when they have a
 # small number of entries, and the biggest entry does not exceed a given
 # threshold. These thresholds can be configured using the following directives.
 hash-max-ziplist-entries 512
 hash-max-ziplist-value 64
- 
+
 # Similarly to hashes, small lists are also encoded in a special way in order
 # to save a lot of space. The special representation is only used when
 # you are under the following limits:
 list-max-ziplist-entries 512
 list-max-ziplist-value 64
- 
+
 # Sets have a special encoding in just one case: when a set is composed
 # of just strings that happens to be integers in radix 10 in the range
 # of 64 bit signed integers.
 # The following configuration setting sets the limit in the size of the
 # set in order to use this special memory saving encoding.
 set-max-intset-entries 512
- 
+
 # Similarly to hashes and lists, sorted sets are also specially encoded in
 # order to save a lot of space. This encoding is only used when the length and
 # elements of a sorted set are below the following limits:
 zset-max-ziplist-entries 128
 zset-max-ziplist-value 64
- 
+
 # HyperLogLog sparse representation bytes limit. The limit includes the
 # 16 bytes header. When an HyperLogLog using the sparse representation crosses
 # this limit, it is converted into the dense representation.
@@ -690,7 +688,7 @@ zset-max-ziplist-value 64
 # ~ 10000 when CPU is not a concern, but space is, and the data set is
 # composed of many HyperLogLogs with cardinality in the 0 - 15000 range.
 hll-sparse-max-bytes 3000
- 
+
 # Active rehashing uses 1 millisecond every 100 milliseconds of CPU time in
 # order to help rehashing the main Redis hash table (the one mapping top-level
 # keys to values). The hash table implementation Redis uses (see dict.c)
@@ -709,7 +707,7 @@ hll-sparse-max-bytes 3000
 #
 # use "activerehashing yes" if you don't have such hard requirements but
 # want to free memory asap when possible.activerehashing yes
- 
+
 # The client output buffer limits can be used to force disconnection of clients
 # that are not reading data from the server fast enough for some reason (a
 # common reason is that a Pub/Sub client can't consume messages as fast as the
@@ -746,7 +744,7 @@ hll-sparse-max-bytes 3000
 client-output-buffer-limit normal 0 0 0
 client-output-buffer-limit slave 256mb 64mb 60
 client-output-buffer-limit pubsub 32mb 8mb 60
- 
+
 # Redis calls an internal function to perform many background tasks, like
 # closing connections of clients in timeout, purging expired keys that are
 # never requested, and so forth.
@@ -763,15 +761,13 @@ client-output-buffer-limit pubsub 32mb 8mb 60
 # a good idea. Most users should use the default of 10 and raise this up to
 # 100 only in environments where very low latency is required.
 hz 10
- 
+
 # When a child rewrites the AOF file, if the following option is enabled
 # the file will be fsync-ed every 32 MB of data generated. This is useful
 # in order to commit the file to the disk more incrementally and avoid
 # big latency spikes.
 aof-rewrite-incremental-fsync yes
 ```
-
-
 
 
 
