@@ -39,6 +39,7 @@
     * [基于redis实现分布式锁](redis/shi-zhan-chang-jing/ji-yu-redis-shi-xian-fen-bu-shi-suo.md)
     * [排行榜](redis/shi-zhan-chang-jing/pai-xu.md)
     * [使用Redis bitmaps进行快速、简单、实时统计](redis/shi-zhan-chang-jing/shi-yong-redis-bitmaps-jin-xing-kuai-su-3001-jian-dan-3001-shi-shi-tong-ji.md)
+    * [利用Redis集合（Set）统计新增用户和次日留存率](redis/shi-zhan-chang-jing/li-yong-redis-ji-he-ff08-set-ff09-tong-ji-xin-zeng-yong-hu-he-ci-ri-liu-cun-lv.md)
 * [Memcached](memcached.md)
   * [Memcached概念](memcached/memcachedgai-nian.md)
   * [安装配置](memcached/an-zhuang-pei-zhi.md)
