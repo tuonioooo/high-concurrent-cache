@@ -46,6 +46,31 @@ redis> INCR page_view
 redis> GET page_view    # 数字值在 Redis 中以字符串的形式保存
 "21"
 ```
+### 基于 set
+
+Redis 的 set 用于保存唯一的数据集合，通过它可以快速判断某一个元素是否存在于集合中，也可以快速计算某一个集合的元素个数，另外和可以合并集合到一个新的集合中。涉及的命令如下：
+
+代码如下:
+```
+SISMEMBER key member  # 判断 member 是否存在
+SADD key member  # 往集合中加入 member
+SCARD key   # 获取集合元素个数 
+```
+### 基于 bit
+
+Redis 的 bit 可以用于实现比 set 内存高度压缩的计数，它通过一个 bit 1 或 0 来存储某个元素是否存在信息。例如网站唯一访客计数，可以把 user_id 作为 bit 的偏移量 offset，设置为 1 表示有访问，使用 1 MB的空间就可以存放 800 多万用户的一天访问计数情况。涉及的命令如下：#p#分页标题#e#
+
+代码如下:
+
+```
+SETBIT key offset value  # 设置位信息
+GETBIT key offset        # 获取位信息
+BITCOUNT key [start end] # 计数
+BITOP operation destkey key [key ...]  # 位图合并 
+```
+ 
+基于 bit 的方法比起 set 空间消耗小得多，但是它要求元素能否简单映射为位偏移，适用面窄了不少，另外它消耗的空间取决于最大偏移量，和计数值无关，如果最大偏移量很大，消耗内存也相当可观。
+
 
 
 
