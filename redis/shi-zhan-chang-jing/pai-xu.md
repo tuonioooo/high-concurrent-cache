@@ -68,8 +68,6 @@ O\(log\(N\)+M\)， N 为有序集的基数，而 M 为结果集的基数。
 
 指定区间内，带有 score 值\(可选\)的有序集成员的列表。
 
-
-
 * ## ZRANK
 
 **ZRANK key member**
@@ -173,7 +171,6 @@ redis > ZRANGE salary 0 200000 WITHSCORES         # 测试 end 下标超出最�
 
 redis > ZRANGE salary 200000 3000000 WITHSCORES   # 测试当给定区间不存在于有序集时的情况
 (empty list or set)
-
 ```
 
 ```
@@ -187,16 +184,69 @@ redis > ZRANGE salary 200000 3000000 WITHSCORES   # 测试当给定区间不存�
 
 127.0.0.1:6379> ZRANK salary tom    # 显示 tom 的薪水排名，第二
 (integer) 1
-
-
-
 ```
 
+* ## **Java 应用示例**
 
+User.java
 
+```
+package com.duobei.model;
+ 
+import java.io.Serializable;
+ 
+public class User implements Serializable {
+	private static final long serialVersionUID = 1L;
+ 
+	private String id;				//编号
+	private String name;			//姓名
+	private double score;			//得分
+	private int rank;				//排名
+	
+	public User() {
+		
+	}
+	
+	public User(String id, String name, double score) {
+		this.id = id;
+		this.name = name;
+		this.score = score;
+	}
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public double getScore() {
+		return score;
+	}
+	public void setScore(double score) {
+		this.score = score;
+	}
+	public int getRank() {
+		return rank;
+	}
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
+ 
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", score=" + score
+				+ ", rank=" + rank + "]";
+	}
+ 
+}
 
-
-
+```
 
 
 
