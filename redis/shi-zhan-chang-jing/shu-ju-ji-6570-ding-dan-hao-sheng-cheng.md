@@ -102,7 +102,7 @@ public static long getOrderId() {
     return Long.valueOf(new StringBuffer().append(ordernoIndex).append(String.valueOf(orderId)).toString());
 }
 ```
->订单前缀可以设置在订单中心或配置文件里，这样可以在不同环境获得不同的订单号，避免因不同数据中心，导致出现订单号重复的情况。 
+订单前缀可以设置在订单中心或配置文件里，这样可以在不同环境获得不同的订单号，避免因不同数据中心，导致出现订单号重复的情况。 
 
 　　JedisManager.incr（）方法，该方法是订单号生成的一个亮点，也是支持能够高并发的主要原因。
 
