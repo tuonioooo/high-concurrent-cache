@@ -12,7 +12,7 @@ BitSet类实现了一个按需增长的位向量。位Set的每一个组件都�
 
 ### 二、Java BitSet实现原理
 
-　在java中，BitSet的实现位于java.util包中：
+在java中，BitSet的实现位于java.util包中：
 
 ```
 public class BitSet implements Cloneable, java.io.Serializable 
@@ -33,14 +33,25 @@ public class BitSet implements Cloneable, java.io.Serializable
      * The internal field corresponding to the serialField "bits".
      */
     private long[] words;
-    
+
     .....
 }
 ```
 
-　可以看到，BitSet的底层实现是使用long数组作为内部存储结构的，所以BitSet的大小为long类型大小\(64位\)的整数倍。
+可以看到，BitSet的底层实现是使用long数组作为内部存储结构的，所以BitSet的大小为long类型大小\(64位\)的整数倍。
 
-　　它有两个构造函数：
+它有两个构造函数：
 
-　　1、BitSet\(\)：创建一个新的位 set，默认大小是64位。
+1、BitSet\(\)：创建一个新的位 set，默认大小是64位。
+
+```
+public BitSet() 
+{
+        initWords(BITS_PER_WORD);
+        sizeIsSticky = false;
+}
+
+```
+
+　2、BitSet\(int nbits\)：创建一个位set，它的初始大小足以显式表示索引范围在 0 到 nbits-1 的位。
 
