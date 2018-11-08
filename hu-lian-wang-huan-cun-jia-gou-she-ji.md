@@ -5,9 +5,7 @@
 * [缓存穿透的解决方案](/hu-lian-wang-huan-cun-jia-gou-she-ji/huan-cun-chuan-tou-de-jie-jue-fang-an.md) 
 * [缓存击穿的解决方案](/hu-lian-wang-huan-cun-jia-gou-she-ji/huan-cun-ji-chuan-de-jie-jue-fang-an.md)
 
-### 缓存架构图![](/assets/缓存架构.png)
-
-### ![](/assets/缓存架构.png)
+# 缓存架构图![](/assets/缓存架构.png)
 
 
 
