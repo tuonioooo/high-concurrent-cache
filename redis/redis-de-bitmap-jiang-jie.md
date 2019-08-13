@@ -13,3 +13,11 @@ redis 127.0.0.1:6379> setbit KEY_NAME OFFSET VALUE
 
 那如何通过SETBIT命令将 andy中的 ‘a’ 变成 ‘b’ 呢？即将 01100001 变成 01100010（b的ASCII码是98），其实就是将’a’中的offset 6从0变成1，将offset 7从1变成0。
 
+![](/assets/20180106165624903.png)
+
+每次SETBIT完毕之后，有一个（integer） 0或者（integer）1的返回值，这个是在你进行SETBIT 之前，该offset位的比特值。最后通过get andy得到的结果变成了 ‘b’ 。
+
+
+
+
+
