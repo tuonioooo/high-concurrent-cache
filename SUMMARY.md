@@ -46,6 +46,7 @@
   * [Redis 大量数据插入](redis/redis-da-liang-shu-ju-cha-ru.md)
   * [redis实现简单延时队列](redis/redisshi-xian-jian-dan-yan-shi-dui-lie.md)
   * [使用 redis 如何设计分布式锁？说一下实现思路？使用 zk 可以吗？如何实现？这两种有什么区别？](redis/shi-yong-redis-ru-he-she-ji-fen-bu-shi-suo-ff1f-shuo-yi-xia-shi-xian-si-lu-ff1f-shi-yong-zk-ke-yi-ma-ff1f-ru-he-shi-xian-ff1f-zhe-liang-zhong-you-shi-yao-qu-bie-ff1f.md)
+  * [Redis的bitmap讲解](redis/redis-de-bitmap-jiang-jie.md)
 * [Memcached](memcached.md)
   * [Memcached概念](memcached/memcachedgai-nian.md)
   * [安装配置](memcached/an-zhuang-pei-zhi.md)
