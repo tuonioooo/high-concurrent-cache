@@ -28,7 +28,7 @@ redis 127.0.0.1:6379> bitcount andy
 
 ![](/assets/20180106165714082.png)
 
-
+> bitcount 统计的是1的个数， bitcount test 0 -1 就是所有的， bitcount 0 0 那么就应该是第一个字节中1的数量的，注意是字节 第一个字节也就是 0 1 2 3 4 5 6 7 这八个位置上。见下面的测试样例，setbit单位是bit，bitcount是以byte为间隔统计的
 
 
 
