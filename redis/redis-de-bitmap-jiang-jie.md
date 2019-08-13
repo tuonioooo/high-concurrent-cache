@@ -17,7 +17,12 @@ redis 127.0.0.1:6379> setbit KEY_NAME OFFSET VALUE
 
 每次SETBIT完毕之后，有一个（integer） 0或者（integer）1的返回值，这个是在你进行SETBIT 之前，该offset位的比特值。最后通过get andy得到的结果变成了 ‘b’ 。
 
+2）BITCOUNT
 
+```
+redis 127.0.0.1:6379> bitcount andy 
+//该命令统计字符串（字节）被设置为1的bit数
+```
 
-
+经过setbit操作之后，andy代表的01100010（b的ASCII码是98），共有3个1。
 
